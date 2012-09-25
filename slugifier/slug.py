@@ -137,7 +137,7 @@ def slug_to_obj_converter( objclass, url_template):
                     # else:
                     #     abort( 404)
 
-            return view_func( request, obj, *args, **kwargs)
+            return view_func( obj, *args, **kwargs)
 
         return wrapper
 
