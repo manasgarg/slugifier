@@ -46,7 +46,7 @@ class SlugMixin(object):
         return self.name
 
     def set_slug( self):
-        self.slug = generate_slug( self.__class__.__name__, self.slug_base_text, old_slug_value=self.slug)
+        self.slug = generate_slug( self.__class__.__name__, self.slug_base_text(), old_slug_value=self.slug)
         
 def generate_slug_value( base_text, max_length=80):
     """Generate a potential slug value."""
