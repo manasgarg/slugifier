@@ -8,6 +8,8 @@ from hashlib import sha1
 
 from flask import redirect, abort
 
+from functools import wraps
+
 class Slug( Document):
     """Represents a slug in the database. Fields are:
         * namespace - A namespace under which this slug falls (e.g. match, team, user etc)
@@ -110,6 +112,7 @@ def slug_to_obj_converter( objclass, url_template):
     object is not found, it will raise 404.
     """
     def view_wrapper( view_func):
+        @wraps( view_func)
         def wrapper( slug, *args, **kwargs):
             obj = objclass.objects( slug=slug).first()
             if( not obj):
