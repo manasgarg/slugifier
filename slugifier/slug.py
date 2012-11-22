@@ -5,6 +5,7 @@ import bson.objectid
 import unicodedata
 import re
 from hashlib import sha1
+from random import randint
 
 from flask import redirect, abort
 
@@ -76,13 +77,12 @@ def generate_slug( namespace, base_text, max_length=80, old_slug_value=""):
     orig_value = value
 
     collision_free = False
-    counter = 0
     while not collision_free:
         s = Slug.objects( namespace=namespace, slug=value).first()
         if( not s):
             collision_free = True
         else:
-            counter += 1
+            counter = randint(1,1000000)
             value = orig_value + '-' + str(counter)
 
     s = Slug( namespace=namespace, slug=value, slug_lower_hash=sha1( value.lower()).hexdigest())
